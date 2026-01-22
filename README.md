@@ -36,4 +36,4 @@ Each component is self-contained and has its own README:
 
 ## Demo
 
-<img src="demo.jpeg" alt="Satellite latency demo" width="900" />
+<img src="demo.jpeg" alt="Satellite latency demo" width="800" />
