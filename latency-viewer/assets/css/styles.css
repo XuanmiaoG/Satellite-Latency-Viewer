@@ -1,0 +1,65 @@
+/* Status indicators */
+.status-exists {
+  color: green;
+  font-weight: bold;
+}
+
+.status-missing {
+  color: red;
+  font-weight: bold;
+}
+
+/* Ingest sources filter styling */
+#ingest-checkboxes {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.form-check-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  cursor: pointer;
+}
+
+/* Range selector buttons styling */
+.plotly .rangeselector button {
+  font-weight: 600;
+  color: #495057;
+  background: white;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 3px 8px;
+  margin-right: 5px;
+}
+
+.plotly .rangeselector button.active {
+  color: white;
+  background: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Satellite info display */
+.satellite-info {
+  margin-bottom: 0.5rem;
+}
+
+/* Loading and error indicators */
+#loading {
+  text-align: center;
+  padding: 2rem;
+}
+
+#errorMessage {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#errorMessage pre {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}

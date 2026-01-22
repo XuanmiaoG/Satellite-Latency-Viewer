@@ -1,0 +1,11 @@
+graft src
+graft bin
+
+include .pre-commit-config.yaml
+include black.toml
+include CONTRIBUTING
+include requirements-dev.txt
+include requirements.txt
+
+
+global-exclude *.py[cod]

@@ -1,0 +1,68 @@
+#! /usr/bin/env bash
+
+: '
+Script to start the sat_latency pipeline.
+
+This contains the Extract part of the pipeline, Transform and Load are written
+in Python in the sat_latency.pipeline file.
+
+We must run the ingestor here because amqpfind does not have a nice Python
+interface.
+
+Process that ingests satellite data using amqpfind. That data automatically
+gets passed to the rest of the pipeline.
+
+Author: Max Drexler
+Email: mndrexler@wisc.edu
+'
+
+function usage(){
+    printf "Usage: %s [integer]\n" "$0" >&2
+    printf "Run the satellite data ingestor. Optionally, supply a verbosity number.\n" >&2
+    exit 1
+}
+
+PYTHON=${PYTHON:-python3}
+VERBOSE_NUM="${1:-0}"
+
+if ! [[ "$VERBOSE_NUM" =~ ^[0-9]+$ ]]; then
+    usage
+fi
+
+MAX_LEN=7
+if (( VERBOSE_NUM > MAX_LEN )); then
+    VERBOSE_NUM=$MAX_LEN
+fi
+
+verbosity=""
+if (( VERBOSE_NUM > 0 )); then
+    for ((i=0; i<VERBOSE_NUM; i++)); do
+        verbosity="${verbosity}-v "
+    done
+fi
+
+trap 'kill "$child_pid"; wait "$child_pid"' SIGINT SIGTERM
+
+function run_pipeline(){
+    while true; do
+        $PYTHON -m amqpfind -H mq1.ssec.wisc.edu \
+            -H mq2.ssec.wisc.edu \
+            -H mq3.ssec.wisc.edu \
+            -X satellite \
+            -u sdsuser \
+            -p sdsmq \
+            -w 60 \
+            -t 0 \
+            -C "*.*.*.*.*.*.*.*.*" \
+            -k "(path)" \
+            -j '{__topic__}!{band}!{coverage}!{ingest_source}!{instrument}!{satellite_ID}!{section}!{__reception_time__}!{start_time}!{end_time}!{create_time}' \
+            | grep --line-buffered -i -v null | $PYTHON -m sat_latency.pipeline $verbosity
+            echo "$(date -u)" sat_latency pipeline died in "$0" >&2
+    done
+}
+
+
+run_pipeline &
+
+child_pid="$!"
+wait "$child_pid"

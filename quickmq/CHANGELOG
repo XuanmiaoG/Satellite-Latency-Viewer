@@ -1,0 +1,106 @@
+# Changelog
+
+All noteable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [[2.1.0] - 2025-04-08](https://gitlb.ssec.wics.edu/SDS/rabbitmq/ssec_amqp/-/tree/2.1.0)
+
+### Added
+
+- New command-line interface `quickmq`!
+
+## [[2.0] - 2024-12-03](https://gitlb.ssec.wics.edu/SDS/rabbitmq/ssec_amqp/-/tree/2.0.0)
+
+### Added
+
+- Interface with RabbitMQ clusters!
+    - ssec_amqp.api.connect has `cluster` parameter.
+    - ssec_amqp.amqp.ClusteredConnection manages the connections.
+- Publish individual messages to arbitrary exchanges.
+    - ssec_amqp.api.publish has `exchange` parameter.
+    - ssec_amqp.client.AmqpClient.publish has `exchange` parameter.
+    - ssec_amqp.amqp.ConnectionProtocol has `exchange` parameter.
+- Connect to RabbitMQ servers using [AMQP URIs](https://www.rabbitmq.com/docs/uri-spec).
+    - ssec_amqp.amqp.AmqpConnection.from_uri
+    - ssec_amqp.amqp.ClusteredConnection.from_uris
+
+### Changed
+
+- Split ssec_amqp.\_\_init__ into separate modules for client and connection code.
+    - ssec_amqp.client contains AmqpClient and related classes.
+    - ssec_amqp.amqp contains classes related to the amqp connection to RabbitMQ servers.
+- AmqpExchange now called AmqpConnection
+
+### Fixed
+
+- AmqpClient not publishing to all exchanges after one disconnects mid publish.
+
+### Deprecated
+
+- AmqpExchange class. To be removed in an upcoming release.
+
+## [[1.1.1] - 2024-08-12](https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/tree/1.1.1)
+
+### Added
+
+- Clients using QuickMQ now show more informative RabbitMQ client properties.
+
+### Fixed
+
+- Connecting to a non-default vhost now works.
+
+## [[1.1.0] - 2024-07-15](https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/tree/1.1.0)
+
+### Added
+
+- New! ssec_amqp.utils module. Contains helpful functions for publishing messages at the SSEC.
+
+### Changed
+
+- AmqpClient.disconnect(exchange=exchange) will raise ValueError if exchange isn't connected to the client.
+- AmqpClient fully closes AmqpExchanges before attempting to reconnect.
+
+## [[1.0.4] - 2024-07-01](https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/tree/1.0.4)
+
+### Changed
+
+- RetryInterval -> LazyRetry
+
+### Added
+
+- Names for AmqpClients
+- Option for LazyRetry to wait to retry.
+- Option for LazyRetry to fail after n attempts.
+- Much more logging throughout main classes.
+
+## [[1.0.3] - 2024-05-07](https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/tree/1.0.3)
+
+### Added
+
+- Publishing and connection timeouts.
+- AmqpExchanges can be closed() and connected() as many times as desired.
+
+## [[1.0.2] - 2024-05-07](https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/tree/1.0.2)
+
+### Added
+
+- ConnectionStatus enum returned by AmqpClient.connections
+
+### Changed
+
+- Made DeliveryStatus enum a StrEnum
+- Failed calls to AmqpClient.connect() will reconnect instead of immediately raising an error.
+
+## [1.0.1] - 2024-03-15
+
+### Added
+
+- New API
+
+### Removed
+
+- Legacy API

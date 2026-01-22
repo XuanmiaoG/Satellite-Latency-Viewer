@@ -1,0 +1,114 @@
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PACKAGE_REGISTRY_URL: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi
+  MERGE_REQUEST: false
+
+cache:
+  paths:
+    - .cache/pip
+
+default:
+  image: python:latest
+  tags: ["docker", "ssec_shared"] # use shared runners at the SSEC
+  before_script:
+    - python --version ; pip --version # For debugging
+    - pip install .
+    - pip install -r requirements-dev.txt
+
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+    on_job_failure: all
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      variables:
+        MERGE_REQUEST: "True"
+      when: always
+    - if: $CI_COMMIT_TAG
+      when: always
+
+stages:
+  - lint
+  - static-analysis
+  - build
+  - deploy
+  - release
+
+.src-changes:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        paths:
+          - src/**/*
+          - setup.py
+    - if: '$MERGE_REQUEST == "True"'
+      when: always
+    - if: $CI_COMMIT_TAG
+      when: always
+
+.new_version:
+  rules:
+    - if: '$MERGE_REQUEST == "True"'
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: always
+
+lint-job:
+  stage: lint
+  extends: .src-changes
+  script:
+    - black --config black.toml --check src/
+    - isort src/ --check --diff
+    - flake8 src/
+  interruptible: true
+
+static-analysis-job:
+  stage: static-analysis
+  extends: .src-changes
+  script:
+    - echo $CI_COMMIT_TAG
+    - mypy src/
+  interruptible: true
+
+build:dist:
+  stage: build
+  extends: .new_version
+  before_script:
+    - pip install build
+  script:
+    - python -m build
+  artifacts:
+    expire_in: "1 day"
+    paths:
+      - ./dist/*.whl
+      - ./dist/*.tar.gz
+
+deploy:package:
+  stage: deploy
+  extends: .new_version
+  before_script:
+    - pip install twine
+  script:
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${PACKAGE_REGISTRY_URL}  dist/*
+
+release:gitlab:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - when: never
+  script:
+    - |
+      release-cli create --name "Release $CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG \
+        --assets-link "{\"name\":\"$(ls dist/*.whl)\",\"url\":\"${PACKAGE_REGISTRY_URL}/$(ls dist/*.whl)\"}" \
+        --assets-link "{\"name\":\"$(ls dist/*.gz)\",\"url\":\"${PACKAGE_REGISTRY_URL}/$(ls dist/*.gz)\"}"
+  release:                               # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
+    tag_name: '$CI_COMMIT_TAG'
+    description: 'Automatic release created using the release-cli'
+    name: 'Release $CI_COMMIT_TAG'
+    assets:
+      links:
+        - name: 'Wheel'
+          url: 'https://host/namespace/project/-/releases/:release/downloads:filepath'
+          filepath: dist/

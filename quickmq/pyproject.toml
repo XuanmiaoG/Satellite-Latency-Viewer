@@ -1,0 +1,192 @@
+[project]
+name = "quickmq"
+dynamic = ["version"]
+description = 'A RabbitMQ client for the SSEC.'
+readme = "README.md"
+requires-python = ">=3.6"
+license = "MIT"
+keywords = ["AMQP", "SSEC", "SDS", "RabbitMQ"]
+authors = [{ name = "Max Drexler", email = "mndrexler@wisc.com" }]
+dependencies = ["amqp<=5.2.0", "typing-extensions; python_version < '3.10'"]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Typing :: Typed",
+]
+
+[project.scripts]
+quickmq = "ssec_amqp:main.main"
+
+[project.urls]
+source = "https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp"
+issues = "https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/issues"
+changes = "https://gitlab.ssec.wisc.edu/SDS/rabbitmq/ssec_amqp/-/blob/main/CHANGELOG?ref_type=heads"
+
+[tool.hatch.version]
+path = "src/ssec_amqp/__about__.py"
+
+
+## Building
+## ========
+## Use with `hatch build`
+##
+## https://hatch.pypa.io/dev/config/build/
+##
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ssec_amqp"]
+
+# TODO: add sdist build target
+
+
+## Unit/Coverage Testing
+## ========================
+## Use with `hatch test`
+##
+## https://hatch.pypa.io/dev/config/internal/testing/
+##
+[tool.hatch.envs.hatch-test]
+randomize = true
+extra-args = ["--ignore=tests/integration/", "tests/unit"]
+dependencies = [
+    "coverage-enable-subprocess==1.0",
+    "coverage[xml,html]",
+    "pytest",
+    "pytest-randomly",
+    "pytest-rerunfailures",
+    "pytest-xdist[psutil]",
+]
+
+[tool.hatch.envs.hatch-test.scripts]
+# Default scripts: must be redefined when overwriting this section
+run = "pytest{env:HATCH_TEST_ARGS:} {args}"
+run-cov = "coverage run -m pytest{env:HATCH_TEST_ARGS:} {args}"
+cov-combine = "coverage combine"
+
+# Added `coverage xml` to generate report for CI
+cov-report = "coverage report && coverage xml && coverage html"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+
+[tool.coverage.run]
+source_pkgs = ["ssec_amqp"]
+branch = true
+parallel = true
+omit = ["src/ssec_amqp/__about__.py"]
+
+[tool.coverage.report]
+exclude_also = ["if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+
+## Integration Testing
+## ===================
+## Use with `hatch run integration:check`
+##
+## Spins up containers to be used as test RabbitMQ nodes.
+##
+[tool.hatch.envs.integration]
+dependencies = ["pytest", "testcontainers[rabbitmq]"]
+
+# Choose a stable version for the integration checks
+# Type checking and unit tests will assure compatability with older versions of python
+[[tool.hatch.envs.integration.matrix]]
+python = ["3.11"]
+
+[tool.hatch.envs.integration.scripts]
+test = "scripts/integration_test.sh {args}"
+
+## Type Checking
+## ====================
+## Use with `hatch run types:check`
+##
+[tool.hatch.envs.types]
+dependencies = ["mypy>=1.0.0"]
+installer = "uv"
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --strict src/"
+
+[[tool.hatch.envs.types.matrix]]
+python = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+
+[[tool.mypy.overrides]]
+module = ["amqp", "amqp.exceptions"]
+ignore_missing_imports = true
+
+
+## Static Analysis
+## ===============
+## Use with `hatch fmt`
+##
+## https://hatch.pypa.io/dev/config/internal/static-analysis/
+##
+[tool.ruff]
+# py36 not supported
+target-version = "py37"
+extend-exclude = ["scripts"]
+
+[tool.ruff.lint]
+ignore = ["FA", "ANN101", "ANN401", "S101"]
+select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "N",
+    "YTT",
+    "ANN",
+    "S",
+    "B",
+    "A",
+    "COM818",
+    "COM819",
+    "LOG",
+    "G",
+    "PIE",
+    "PT",
+    "Q",
+    "RET",
+    "SIM",
+    "ARG",
+    "PLE",
+    "PLC",
+]
+# TODO: add 'D' rule.
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*" = ["ANN"]
+
+[tool.ruff.format]
+# Enable reformatting of code snippets in docstrings.
+docstring-code-format = true
+
+## Developer Environment
+## =====================
+## Use with the lsp for code completion/import resolution.
+## See CONTRIBUTING.md for more information.
+##
+[tool.hatch.envs.dev]
+dependencies = [
+    "amqp",
+    "pytest",
+    "testcontainers[rabbitmq]",
+    "typing_extensions",
+]

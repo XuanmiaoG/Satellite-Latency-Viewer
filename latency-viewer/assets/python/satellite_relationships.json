@@ -1,0 +1,682 @@
+{
+    "satellites": [
+      "4B",
+      "DMSP-16",
+      "DMSP-17",
+      "DMSP-18",
+      "G16",
+      "G18",
+      "G19",
+      "GW1",
+      "H9",
+      "M10",
+      "M9",
+      "MetOp-1",
+      "MetOp-3",
+      "NOAA-15",
+      "NOAA-18",
+      "NOAA-19",
+      "S3A",
+      "S3B",
+      "composite",
+      "dmsp17",
+      "dmsp18",
+      "g16",
+      "g18",
+      "g2",
+      "j01",
+      "n19",
+      "n20",
+      "n21",
+      "snpp"
+    ],
+    "coverages": [
+      "CONUS",
+      "FLDK",
+      "Full Disk",
+      "JP01",
+      "JP02",
+      "JP03",
+      "JP04",
+      "Mesoscale-1",
+      "Mesoscale-2",
+      "Not Available",
+      "R301",
+      "R302",
+      "R303",
+      "R304",
+      "sun"
+    ],
+    "instruments": [
+      "ABI",
+      "AMSR2",
+      "ATMS",
+      "EXIS",
+      "GIIRS",
+      "GLM",
+      "MAG",
+      "Not Available",
+      "OMPS",
+      "SEIS",
+      "SLSTR",
+      "SUVI",
+      "VIIRS",
+      "ahi",
+      "amsu",
+      "argos",
+      "atms",
+      "avhrr",
+      "cris",
+      "eosdb",
+      "hirs",
+      "iasi",
+      "imager",
+      "mhs",
+      "mirs",
+      "misc",
+      "omps",
+      "scrif",
+      "seviri",
+      "ssmi",
+      "viirs"
+    ],
+    "relationships": {
+      "G18": {
+        "coverages": [
+          "CONUS",
+          "Full Disk",
+          "Mesoscale-1",
+          "Mesoscale-2",
+          "Not Available",
+          "sun"
+        ],
+        "instruments": [
+          "ABI",
+          "EXIS",
+          "GLM",
+          "MAG",
+          "SEIS",
+          "SUVI",
+          "misc"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "ABI",
+            "EXIS",
+            "GLM",
+            "MAG",
+            "SEIS",
+            "SUVI",
+            "misc"
+          ],
+          "Mesoscale-1": [
+            "ABI"
+          ],
+          "sun": [
+            "SUVI"
+          ],
+          "Mesoscale-2": [
+            "ABI"
+          ],
+          "CONUS": [
+            "ABI"
+          ],
+          "Full Disk": [
+            "ABI"
+          ]
+        }
+      },
+      "G16": {
+        "coverages": [
+          "CONUS",
+          "Full Disk",
+          "Mesoscale-1",
+          "Mesoscale-2",
+          "Not Available",
+          "sun"
+        ],
+        "instruments": [
+          "ABI",
+          "EXIS",
+          "GLM",
+          "MAG",
+          "SEIS",
+          "SUVI"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "EXIS",
+            "GLM",
+            "MAG",
+            "SEIS",
+            "SUVI"
+          ],
+          "Mesoscale-1": [
+            "ABI"
+          ],
+          "sun": [
+            "SUVI"
+          ],
+          "Mesoscale-2": [
+            "ABI"
+          ],
+          "CONUS": [
+            "ABI"
+          ],
+          "Full Disk": [
+            "ABI"
+          ]
+        }
+      },
+      "G19": {
+        "coverages": [
+          "CONUS",
+          "Full Disk",
+          "Mesoscale-1",
+          "Mesoscale-2",
+          "Not Available"
+        ],
+        "instruments": [
+          "ABI",
+          "EXIS",
+          "GLM",
+          "MAG",
+          "SEIS",
+          "SUVI"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "EXIS",
+            "GLM",
+            "MAG",
+            "SEIS",
+            "SUVI"
+          ],
+          "Mesoscale-1": [
+            "ABI"
+          ],
+          "Mesoscale-2": [
+            "ABI"
+          ],
+          "CONUS": [
+            "ABI"
+          ],
+          "Full Disk": [
+            "ABI"
+          ]
+        }
+      },
+      "M9": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "seviri"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "seviri"
+          ]
+        }
+      },
+      "M10": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "seviri"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "seviri"
+          ]
+        }
+      },
+      "g16": {
+        "coverages": [
+          "CONUS",
+          "Full Disk"
+        ],
+        "instruments": [
+          "ABI"
+        ],
+        "coverage_instruments": {
+          "CONUS": [
+            "ABI"
+          ],
+          "Full Disk": [
+            "ABI"
+          ]
+        }
+      },
+      "g18": {
+        "coverages": [
+          "CONUS",
+          "Full Disk"
+        ],
+        "instruments": [
+          "ABI"
+        ],
+        "coverage_instruments": {
+          "CONUS": [
+            "ABI"
+          ],
+          "Full Disk": [
+            "ABI"
+          ]
+        }
+      },
+      "4B": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "GIIRS"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "GIIRS"
+          ]
+        }
+      },
+      "H9": {
+        "coverages": [
+          "FLDK",
+          "JP01",
+          "JP02",
+          "JP03",
+          "JP04",
+          "R301",
+          "R302",
+          "R303",
+          "R304"
+        ],
+        "instruments": [
+          "ahi"
+        ],
+        "coverage_instruments": {
+          "FLDK": [
+            "ahi"
+          ],
+          "JP04": [
+            "ahi"
+          ],
+          "R301": [
+            "ahi"
+          ],
+          "R302": [
+            "ahi"
+          ],
+          "JP01": [
+            "ahi"
+          ],
+          "JP03": [
+            "ahi"
+          ],
+          "R303": [
+            "ahi"
+          ],
+          "R304": [
+            "ahi"
+          ],
+          "JP02": [
+            "ahi"
+          ]
+        }
+      },
+      "n20": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "Not Available",
+          "VIIRS",
+          "atms",
+          "cris",
+          "omps",
+          "scrif",
+          "viirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "Not Available",
+            "VIIRS",
+            "atms",
+            "cris",
+            "omps",
+            "scrif",
+            "viirs"
+          ]
+        }
+      },
+      "n21": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "Not Available",
+          "OMPS",
+          "VIIRS",
+          "atms",
+          "cris",
+          "omps",
+          "scrif",
+          "viirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "Not Available",
+            "OMPS",
+            "VIIRS",
+            "atms",
+            "cris",
+            "omps",
+            "scrif",
+            "viirs"
+          ]
+        }
+      },
+      "g2": {
+        "coverages": [
+          "Full Disk"
+        ],
+        "instruments": [
+          "imager"
+        ],
+        "coverage_instruments": {
+          "Full Disk": [
+            "imager"
+          ]
+        }
+      },
+      "composite": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "Not Available",
+          "VIIRS",
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "Not Available",
+            "VIIRS",
+            "mirs"
+          ]
+        }
+      },
+      "j01": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "Not Available",
+          "OMPS",
+          "VIIRS"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "Not Available",
+            "OMPS",
+            "VIIRS"
+          ]
+        }
+      },
+      "MetOp-3": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "amsu",
+          "argos",
+          "avhrr",
+          "iasi",
+          "mhs",
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "amsu",
+            "argos",
+            "avhrr",
+            "iasi",
+            "mhs",
+            "mirs"
+          ]
+        }
+      },
+      "MetOp-1": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "amsu",
+          "argos",
+          "avhrr",
+          "iasi",
+          "mhs",
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "amsu",
+            "argos",
+            "avhrr",
+            "iasi",
+            "mhs",
+            "mirs"
+          ]
+        }
+      },
+      "snpp": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "ATMS",
+          "Not Available",
+          "OMPS",
+          "VIIRS",
+          "atms",
+          "cris",
+          "eosdb",
+          "omps",
+          "scrif",
+          "viirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "ATMS",
+            "Not Available",
+            "OMPS",
+            "VIIRS",
+            "atms",
+            "cris",
+            "eosdb",
+            "omps",
+            "scrif",
+            "viirs"
+          ]
+        }
+      },
+      "NOAA-15": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "amsu",
+          "argos",
+          "avhrr",
+          "hirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "amsu",
+            "argos",
+            "avhrr",
+            "hirs"
+          ]
+        }
+      },
+      "NOAA-18": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "amsu",
+          "argos",
+          "avhrr",
+          "hirs",
+          "mhs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "amsu",
+            "argos",
+            "avhrr",
+            "hirs",
+            "mhs"
+          ]
+        }
+      },
+      "S3A": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "SLSTR"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "SLSTR"
+          ]
+        }
+      },
+      "DMSP-18": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "ssmi"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "ssmi"
+          ]
+        }
+      },
+      "DMSP-17": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "ssmi"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "ssmi"
+          ]
+        }
+      },
+      "NOAA-19": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "amsu",
+          "argos",
+          "avhrr",
+          "hirs",
+          "mhs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "amsu",
+            "argos",
+            "avhrr",
+            "hirs",
+            "mhs"
+          ]
+        }
+      },
+      "S3B": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "SLSTR"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "SLSTR"
+          ]
+        }
+      },
+      "GW1": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "AMSR2"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "AMSR2"
+          ]
+        }
+      },
+      "dmsp17": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "mirs"
+          ]
+        }
+      },
+      "dmsp18": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "mirs"
+          ]
+        }
+      },
+      "DMSP-16": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "ssmi"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "ssmi"
+          ]
+        }
+      },
+      "n19": {
+        "coverages": [
+          "Not Available"
+        ],
+        "instruments": [
+          "mirs"
+        ],
+        "coverage_instruments": {
+          "Not Available": [
+            "mirs"
+          ]
+        }
+      }
+    }
+  }
