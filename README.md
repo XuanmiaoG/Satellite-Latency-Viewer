@@ -23,12 +23,6 @@ Each component is self-contained and has its own README:
 - `rt_latency/README.md`
 - `quickmq/README.md`
 
-## Ownership
-
-- `latency-viewer` is authored and maintained by Yang Gao.
-- `rt_latency` is the pipeline wrapper/integration maintained by Yang Gao.
-- `quickmq` is optimized here for this pipeline and is maintained as part of this project.
-
 ## Notes
 
 - All components expect Python 3.9+ unless otherwise noted in their individual READMEs.
@@ -36,4 +30,4 @@ Each component is self-contained and has its own README:
 
 ## Demo
 
-<img src="demo.jpeg" alt="Satellite latency demo" width="800" />
+<img src="demo.jpeg" alt="Satellite latency demo" width="120" />
